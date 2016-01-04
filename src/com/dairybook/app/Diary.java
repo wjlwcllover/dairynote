@@ -10,6 +10,21 @@ public class Diary {
 	public int dairyId;
 	public int imageId;
 
+	public Diary()
+	{
+		
+	}
+	
+	public Diary(String titleString, String date, String contentString,
+			int dairyId, int imageId) {
+		super();
+		this.titleString = titleString;
+		this.date = date;
+		this.contentString = contentString;
+		this.dairyId = dairyId;
+		this.imageId = imageId;
+	}
+
 	public String getTitleString() {
 		return titleString;
 	}

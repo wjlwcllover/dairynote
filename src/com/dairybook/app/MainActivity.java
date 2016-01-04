@@ -27,15 +27,7 @@ public class MainActivity extends Activity {
 
 	private Button editdairyButton;
 
-	private ListView listView;
-
-	private String[] data = { "A", "A", "A", "A", "A", "A", "A", "A", "A", "A",
-			"A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A",
-			"A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A",
-			"A" };
-
-	private String[] itemMap = new String[2];
-	private List<String[]> list = new ArrayList<String[]>();
+	private ListView listViewSum;
 
 	private DairyHelper dairyHelper = new DairyHelper(this, "Dairy.db", null, 1);
 
@@ -45,29 +37,14 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
-		EditText editText = (EditText) findViewById(R.id.test);
-		listView = (ListView) findViewById(R.id.list_view);
+		List<Diary> list = loadDiaries();
+		listViewSum = (ListView) findViewById(R.id.list_view);
 
-		SQLiteDatabase database = dairyHelper.getWritableDatabase();
-		Cursor cursor = database.query("dairy", null, null, null, null, null,
-				null);
-
-		 
-		if (cursor.moveToFirst()) {
-			do {
-				itemMap[0] = cursor.getString(cursor
-						.getColumnIndex("dairy_title"));
-				itemMap[1] = cursor.getString(cursor
-						.getColumnIndex("dairy_content"));
-
-				editText.append(itemMap[0] + itemMap[1]);
-				list.add(itemMap);
-			} while (cursor.moveToNext());
-		}
-
+		DairyAdapter adapter = new DairyAdapter(this, R.layout.list_item,list);
+		listViewSum.setAdapter(adapter);
 		
 		
-
+		
 		
 		editdairyButton = (Button) findViewById(R.id.edit_dairy);
 		editdairyButton.setOnClickListener(new OnClickListener() {
@@ -81,4 +58,29 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+
+	public List<Diary> loadDiaries() {
+
+		List<Diary> listDiary = new ArrayList<Diary>();
+
+		SQLiteDatabase database = dairyHelper.getWritableDatabase();
+		Cursor cursor = database.query("dairy", null, null, null, null, null,
+				null);
+
+		if (cursor.moveToFirst()) {
+			do {
+
+				Diary diary = new Diary();
+				diary.setDate(cursor.getString(cursor.getColumnIndex("dairy_date")));
+				diary.setContentString(cursor.getString(cursor.getColumnIndex( "dairy_content")));
+				diary.setTitleString(cursor.getString(cursor.getColumnIndex( "dairy_title")));
+				 
+				listDiary.add(diary);
+			} while (cursor.moveToNext());
+		}
+
+		cursor.close();
+		return listDiary;
+	}
+
 }
