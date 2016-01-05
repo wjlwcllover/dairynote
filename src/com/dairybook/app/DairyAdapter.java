@@ -43,7 +43,7 @@ public class DairyAdapter extends ArrayAdapter<Diary> {
 
 		titleTextView.setText(diary.getTitleString());
 		contentTextView.setText(diary.getContentString());
-		dateTextView.setText(diary.getDate());
+		dateTextView.setText(diary.getDate()  );
 
 		return view;
 	}
