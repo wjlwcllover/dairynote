@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -56,6 +57,20 @@ public class MainActivity extends Activity {
 			}
 		});
 
+		listViewSum.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				
+				Intent intent = new Intent (MainActivity.this, DeleteActivity.class);
+				startActivity(intent);
+				
+				
+				
+				return false;
+			}
+		});
+		
 		editdairyButton = (Button) findViewById(R.id.edit_dairy);
 		editdairyButton.setOnClickListener(new OnClickListener() {
 
