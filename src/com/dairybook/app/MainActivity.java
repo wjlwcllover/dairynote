@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
 				Intent intent = new Intent(MainActivity.this,
 						EditNoteActivity.class);
 
-				intent.putExtra("id",  ""+diary.getDairyId());
+				intent.putExtra("id", "" + diary.getDairyId());
 				startActivity(intent);
 
 			}
@@ -65,8 +65,8 @@ public class MainActivity extends Activity {
 				Intent intent2 = new Intent(MainActivity.this,
 						EditNoteActivity.class);
 
-				 
-     			startActivity(intent2);
+				intent2.putExtra("id", "true");
+				startActivity(intent2);
 			}
 		});
 	}
@@ -85,9 +85,7 @@ public class MainActivity extends Activity {
 
 				Diary diary = new Diary();
 				diary.setDate(cursor.getString(cursor
-						.getColumnIndex("dairy_date"))
-						+ "***"
-						+ cursor.getInt(cursor.getColumnIndex("id")));
+						.getColumnIndex("dairy_date")));
 				diary.setContentString(cursor.getString(cursor
 						.getColumnIndex("dairy_content")));
 				diary.setTitleString(cursor.getString(cursor
